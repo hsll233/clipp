@@ -104,7 +104,7 @@ RegisterStore g_registerStore;
         }
     }
 
-    SingleInstanceResult EnsureSingleInstance() {
+    SingleInstanceResult EnsureSingleInstance(bool startMinimized = false) {
         HANDLE newMutex = CreateMutexW(nullptr, TRUE, kSingleInstanceMutexName);
         if (!newMutex) {
             g_logger.log(__FUNCTION__, Logger::Level::Error, L"CreateMutexW failed while creating the single-instance mutex (GetLastError=%lu).", GetLastError());
@@ -113,7 +113,9 @@ RegisterStore g_registerStore;
 
         if (GetLastError() == ERROR_ALREADY_EXISTS) {
             CloseHandle(newMutex);
-            RequestRunningInstanceToShowWindow();
+            if (!startMinimized) {
+                RequestRunningInstanceToShowWindow();
+            }
             return SingleInstanceResult::ExitSuccess;
         }
 
@@ -358,7 +360,17 @@ int main(int argc, char* argv[]) {
 #else
     g_logger.log(__FUNCTION__, Logger::Level::Info, L"==================================================================");
 
+#ifdef _WIN32
+    bool startMinimized = false;
+    for (int argumentIndex = 1; argumentIndex < argc; ++argumentIndex) {
+        if (std::string_view(argv[argumentIndex]) == "--minimized") {
+            startMinimized = true;
+        }
+    }
+    switch (EnsureSingleInstance(startMinimized)) {
+#else
     switch (EnsureSingleInstance()) {
+#endif
         case SingleInstanceResult::Continue:
             break;
         case SingleInstanceResult::ExitSuccess:
@@ -461,7 +473,7 @@ int main(int argc, char* argv[]) {
 
     #ifdef _WIN32
         SetConsoleCtrlHandler(ConsoleCtrlHandler, TRUE);
-        TrayIconMessageLoop(!haveNetworkKey);
+        TrayIconMessageLoop(!haveNetworkKey && !startMinimized);
     #elif defined(__APPLE__)
         std::thread signalThread([waitset]() mutable {
             int caughtSignal = 0;

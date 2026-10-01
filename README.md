@@ -4,7 +4,7 @@
 
 ## 下载
 
-前往 [中文版 Releases](https://github.com/hsll233/clipp/releases/latest)，下载 `Clipp-1.5.0.160-zh-CN-Windows-x64.zip`，解压后运行 `clipp.exe`。
+前往 [中文版 Releases](https://github.com/hsll233/clipp/releases/latest)，下载 `Clipp-1.5.0.160-zh-CN-2-Windows-x64.zip`，解压后运行 `clipp.exe`。
 
 - `clipp.exe`：Windows 中文图形界面。
 - `clipp.com`：原有命令行客户端，命令与帮助保留英文。
@@ -24,6 +24,14 @@
 
 “收藏”对应上游 Registers，是可命名并跨设备同步的持久剪贴板条目。
 
+## 开机启动与托盘运行
+
+Windows 中文版支持 `clipp.exe --minimized`，启动后直接留在通知区域托盘，不弹出未配对时的网络页面。已运行时再次执行该参数，也不会激活主窗口；正常双击程序仍可打开窗口。
+
+程序自动注册的开机命令已加上 `--minimized`。若需要从托盘“退出”后仍在下次登录自动启动，可在 Windows 启动文件夹建立普通快捷方式，目标为安装目录的 `clipp.exe`，参数为 `--minimized`。开机时无需 PowerShell、VBS 或其他启动脚本。
+
+如果使用过早期本地的 PowerShell 最小化启动方案，请删除启动文件夹内的 `Clipp-start-minimized.ps1`，并将 `Clipp.lnk` 改成直接指向新版程序、参数为 `--minimized`。Windows 启动文件夹可用 `Win+R` 输入 `shell:startup` 打开。
+
 ## 验证与限制
 
 - Release 模式编译、链接与启动通过。
@@ -35,7 +43,7 @@
 - 普通权限程序向管理员窗口模拟粘贴或键盘输入，受 Windows 权限隔离限制。
 - 命令行帮助和技术诊断日志保留英文。
 
-本次修改聚焦界面翻译，不代表修复了上游的全部缺陷。
+本分叉包含中文界面和 Windows 原生托盘启动修复，不代表修复了上游的全部缺陷。
 
 ## 从源码构建
 

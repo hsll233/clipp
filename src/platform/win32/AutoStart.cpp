@@ -54,7 +54,7 @@ static std::wstring MakeAutoStartCommand() {
         return {};
     }
 
-    return L"\"" + executablePath + L"\"";
+    return L"\"" + executablePath + L"\" --minimized";
 }
 
 namespace {
