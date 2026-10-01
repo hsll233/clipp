@@ -1,3 +1,69 @@
+# Clipp 简体中文版（Windows x64）
+
+基于 [martona/clipp](https://github.com/martona/clipp) **v1.5.0.160** 的中文界面分叉。菜单、设置、提示、连接状态和历史弹窗已翻译为简体中文，保留原有同步、配对和加密逻辑。
+
+## 下载
+
+前往 [中文版 Releases](https://github.com/hsll233/clipp/releases/latest)，下载 `Clipp-1.5.0.160-zh-CN-Windows-x64.zip`，解压后运行 `clipp.exe`。
+
+- `clipp.exe`：Windows 中文图形界面。
+- `clipp.com`：原有命令行客户端，命令与帮助保留英文。
+- `SHA256SUMS.txt`：下载文件校验值。
+- 源码另提供 ZIP 下载，也可以直接克隆此仓库。
+
+这是社区维护的本地构建，未经上游官方签名；本次发布只提供 Windows x64 程序。
+
+## 配对与使用
+
+1. 在需要同步的其他设备上安装 Clipp。
+2. 在“网络”页面设置完全相同的**群组名称**和**配对密码**，两者都区分大小写。密码至少 8 个字符。
+3. 将设备接入同一局域网，确认群组密钥指纹一致。
+4. 完成配对后，剪贴板文本和图片会按原版规则同步。
+
+主快捷键默认为 **Win+Insert**。如果备用快捷键被系统或其他应用占用，可在“设置 → 剪贴板历史弹窗”中改成 **Ctrl+Alt+V** 等可用组合。本次发布不包含任何人的配对信息或配置。
+
+“收藏”对应上游 Registers，是可命名并跨设备同步的持久剪贴板条目。
+
+## 验证与限制
+
+- Release 模式编译、链接与启动通过。
+- 上游现有 **71 个测试用例、10,041 项断言全部通过**，包含存储、持久化、序列化、弹窗模型和本机回环 TCP 读写。
+- **153 项共用界面文字**及额外 Windows 显示文字已翻译，格式占位符检查通过。
+- 实际检查了主界面、网络、设置、关于、诊断和历史弹窗，未发现中文乱码或文字截断。
+- 构建使用普通权限清单，保留 Common Controls v6 依赖。
+- 尚未进行真实双设备同步验收，也未穷尽全部 Windows 版本、缩放比例、键盘布局和网络环境。
+- 普通权限程序向管理员窗口模拟粘贴或键盘输入，受 Windows 权限隔离限制。
+- 命令行帮助和技术诊断日志保留英文。
+
+本次修改聚焦界面翻译，不代表修复了上游的全部缺陷。
+
+## 从源码构建
+
+安装 Visual Studio 的 C++ 桌面构建工具，包含 MSVC、Windows SDK、CMake、Ninja 和 vcpkg。将源码放在较短路径，在 PowerShell 中执行：
+
+```powershell
+.\build-zh.ps1
+```
+
+脚本自动定位微软构建工具，以 Release 模式生成 `build/windows-release/clipp.exe` 和 `clipp.com`，并运行项目现有测试。
+
+使用上游构建脚本时，本地无官方签名的版本需加上 `-SkipUiAccessStamp`：
+
+```powershell
+.\scripts\build_windows.ps1 -Version 1.5.0.160 -DisableCodeSigning -SkipUiAccessStamp
+```
+
+详见 [BUILDING.md](BUILDING.md)。中文构建说明见 [README.zh-CN.md](README.zh-CN.md)。
+
+## 来源与许可
+
+基础提交：`2096ac5892360d265341d3e99fac77316e64b5b3`。保留上游作者署名和 [MIT 许可证](LICENSE.md)。依赖许可随程序包提供。
+
+本分叉的 Release 由已验证的本地构建发布；本仓库已关闭继承的 GitHub Actions，避免触发上游的签名、商店及包管理器发布流程。
+
+<details>
+<summary>上游英文说明（官方原版）</summary>
+
 # Clipp
 
 [![Windows CI](https://github.com/martona/clipp/actions/workflows/windows-ci.yml/badge.svg)](https://github.com/martona/clipp/actions/workflows/windows-ci.yml)
@@ -345,3 +411,5 @@ For setup and build instructions, see [BUILDING.md](BUILDING.md).
 ## License
 
 Clipp is released under the MIT License. See [LICENSE.md](LICENSE.md). This is a personal, non-commercial project. Copyright (C) 2026 [Marton Anka](https://anka.me)
+
+</details>

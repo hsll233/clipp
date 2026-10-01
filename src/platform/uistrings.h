@@ -202,3 +202,7 @@
 #define CLP_UI_ACK_XXHASH "xxHash - BSD-2-Clause non-cryptographic hashing"
 #define CLP_UI_ACK_ZSTD "Zstandard (zstd) - BSD-licensed compression"
 #define CLP_UI_THIRD_PARTY_LICENSE_NOTE "Third-party license terms remain with their respective projects."
+
+#ifdef _WIN32
+#include "uistrings.zh-CN.h"
+#endif

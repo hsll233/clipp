@@ -245,8 +245,8 @@ AboutPage::AboutPage(std::function<void()> diagnosticsCallback)
     AppendAcknowledgement(acknowledgements, CLP_W(CLP_UI_ACK_LIBSODIUM));
     AppendAcknowledgement(acknowledgements, CLP_W(CLP_UI_ACK_XXHASH));
     AppendAcknowledgement(acknowledgements, CLP_W(CLP_UI_ACK_ZSTD));
-    AppendAcknowledgement(acknowledgements, L"Microsoft C++/WinRT and Microsoft Toolkit Win32 UI SDK - MIT-licensed Windows UI integration");
-    AppendAcknowledgement(acknowledgements, L"darkmode32plus - BSD-3-Clause; includes portions from win32-darkmode (MIT), darkmodelib (MPL-2.0), PolyHook 2.0 (MIT), and UAH menu bar code by Adam D. Walling (MIT)");
+    AppendAcknowledgement(acknowledgements, L"Microsoft C++/WinRT 和 Microsoft Toolkit Win32 UI SDK — 使用 MIT 许可证的 Windows 界面组件");
+    AppendAcknowledgement(acknowledgements, L"darkmode32plus — BSD-3-Clause；包含 win32-darkmode (MIT)、darkmodelib (MPL-2.0)、PolyHook 2.0 (MIT) 和 Adam D. Walling 的 UAH 菜单代码 (MIT)");
     content.Children().Append(acknowledgements);
 
     TextBlock note = CreateTextBlock(
